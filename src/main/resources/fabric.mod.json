@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "entivita",
+  "version": "${version}",
+
+  "name": "Entivita",
+"description": "Immersive combat HUD that displays professional, real-time health bars directly above players.",
+"authors": [
+  "www0abdb-oss",
+  "Gaider10"
+],
+
+
+    "contact": {
+        "homepage": "https://fabricmc.net/",
+        "sources": "https://github.com/FabricMC/fabric-example-mod"
+    },
+
+    "license": "Apache 2.0",
+    "icon": "assets/entivita/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "www0abdb.oss.entivita.EntivitaMod"
+    ]
+  },
+  "mixins": [
+    "entivita.mixins.json"
+  ],
+
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

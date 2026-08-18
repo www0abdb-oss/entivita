@@ -1,0 +1,7 @@
+{
+  "key.categories.entivita": "Player Health Indicators",
+  "key.entivita.renderingEnabled": "Toggle Rendering",
+  "key.entivita.heartStackingEnabled": "Toggle Heart Stacking",
+  "key.entivita.increaseHeartOffset": "Increase Heart Offset",
+  "key.entivita.decreaseHeartOffset": "Decrease Heart Offset"
+}
