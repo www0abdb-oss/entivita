@@ -3,7 +3,8 @@
   "package": "www0abdb.oss.entivita.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
-    "AvatarRendererMixin"
+    "AvatarRendererMixin",
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
