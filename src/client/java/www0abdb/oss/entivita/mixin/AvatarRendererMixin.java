@@ -221,24 +221,28 @@ private static void submitHeart(
                 vertices.addVertex(matrix, x0, y0, z)
                         .setColor(255, 255, 255, 255)
                         .setUv(sprite.getU0(), sprite.getV1())
+                        .setUv1(0, 0)
                         .setUv2(light & 0xFFFF, light >> 16)
                         .setNormal(0.0F, 0.0F, 1.0F);
 
                 vertices.addVertex(matrix, x1, y0, z)
                         .setColor(255, 255, 255, 255)
                         .setUv(sprite.getU1(), sprite.getV1())
+                        .setUv1(0, 0)
                         .setUv2(light & 0xFFFF, light >> 16)
                         .setNormal(0.0F, 0.0F, 1.0F);
 
                 vertices.addVertex(matrix, x1, y1, z)
                         .setColor(255, 255, 255, 255)
                         .setUv(sprite.getU1(), sprite.getV0())
+                        .setUv1(0, 0)
                         .setUv2(light & 0xFFFF, light >> 16)
                         .setNormal(0.0F, 0.0F, 1.0F);
 
                 vertices.addVertex(matrix, x0, y1, z)
                         .setColor(255, 255, 255, 255)
                         .setUv(sprite.getU0(), sprite.getV0())
+                        .setUv1(0, 0)
                         .setUv2(light & 0xFFFF, light >> 16)
                         .setNormal(0.0F, 0.0F, 1.0F);
             }
