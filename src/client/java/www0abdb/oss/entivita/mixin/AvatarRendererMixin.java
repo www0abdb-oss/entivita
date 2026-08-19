@@ -26,6 +26,16 @@ import www0abdb.oss.entivita.HeartType;
 public abstract class AvatarRendererMixin {
 
 private static final Identifier GUI_ATLAS = net.minecraft.data.AtlasIds.GUI;
+private static final RenderType[] HEART_RENDER_TYPES;
+
+static {
+    HeartType[] types = HeartType.values();
+    HEART_RENDER_TYPES = new RenderType[types.length];
+    for (int i = 0; i < types.length; i++) {
+        SpriteId spriteId = new SpriteId(GUI_ATLAS, types[i].texture);
+        HEART_RENDER_TYPES[i] = spriteId.renderType(RenderTypes::entityCutout);
+    }
+}
 
     @Inject(
             method = "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
@@ -113,26 +123,28 @@ private static final Identifier GUI_ATLAS = net.minecraft.data.AtlasIds.GUI;
         poseStack.scale(-0.025F, 0.025F, 0.025F);
 
         AtlasManager atlasManager = client.getAtlasManager();
+        var atlas = atlasManager.getAtlasOrThrow(GUI_ATLAS);
+        TextureAtlasSprite emptySprite = atlas.getSprite(HeartType.EMPTY.texture);
+        TextureAtlasSprite redFullSprite = atlas.getSprite(HeartType.RED_FULL.texture);
+        TextureAtlasSprite redHalfSprite = atlas.getSprite(HeartType.RED_HALF.texture);
+        TextureAtlasSprite yellowFullSprite = atlas.getSprite(HeartType.YELLOW_FULL.texture);
+        TextureAtlasSprite yellowHalfSprite = atlas.getSprite(HeartType.YELLOW_HALF.texture);
+
+        float baseX = ((Math.min(totalHearts, heartsPerRow) - 1) * 8.0F) / 2.0F;
 
         for (int heart = 0; heart < totalHearts; heart++) {
             int row = heart / heartsPerRow;
             int col = heart % heartsPerRow;
 
-            float x =
-                    ((Math.min(totalHearts, heartsPerRow) - 1) * 8.0F)
-                            / 2.0F
-                            - col * 8.0F;
-
+            float x = baseX - col * 8.0F;
             float y = row * rowOffset;
             float z = row * 0.01F;
-
-            HeartType type;
 
             // Container first.
             submitHeart(
                     collector,
                     poseStack,
-                    atlasManager,
+                    emptySprite,
                     x,
                     y,
                     z,
@@ -140,19 +152,27 @@ private static final Identifier GUI_ATLAS = net.minecraft.data.AtlasIds.GUI;
                     avatarState.lightCoords
             );
 
-            if (heart < redHearts) {
-                type = HeartType.RED_FULL;
+            HeartType type;
+            TextureAtlasSprite sprite;
 
+            if (heart < redHearts) {
                 if (heart == redHearts - 1 && (health & 1) != 0) {
                     type = HeartType.RED_HALF;
+                    sprite = redHalfSprite;
+                } else {
+                    type = HeartType.RED_FULL;
+                    sprite = redFullSprite;
                 }
             } else if (heart < normalHearts) {
                 type = HeartType.EMPTY;
+                sprite = emptySprite;
             } else {
-                type = HeartType.YELLOW_FULL;
-
                 if (heart == totalHearts - 1 && (absorption & 1) != 0) {
                     type = HeartType.YELLOW_HALF;
+                    sprite = yellowHalfSprite;
+                } else {
+                    type = HeartType.YELLOW_FULL;
+                    sprite = yellowFullSprite;
                 }
             }
 
@@ -160,7 +180,7 @@ private static final Identifier GUI_ATLAS = net.minecraft.data.AtlasIds.GUI;
                 submitHeart(
                         collector,
                         poseStack,
-                        atlasManager,
+                        sprite,
                         x,
                         y,
                         z + 0.001F,
@@ -175,24 +195,14 @@ private static final Identifier GUI_ATLAS = net.minecraft.data.AtlasIds.GUI;
 private static void submitHeart(
         SubmitNodeCollector collector,
         PoseStack poseStack,
-        AtlasManager atlasManager,
+        TextureAtlasSprite sprite,
         float x,
         float y,
         float z,
         HeartType type,
         int light
 ) {
-    SpriteId spriteId = new SpriteId(
-            GUI_ATLAS,
-            type.texture
-    );
-
-    TextureAtlasSprite sprite =
-            atlasManager.getAtlasOrThrow(GUI_ATLAS)
-                    .getSprite(type.texture);
-
-    RenderType renderType =
-            spriteId.renderType(RenderTypes::entityCutout);
+    RenderType renderType = HEART_RENDER_TYPES[type.ordinal()];
 
     collector.submitCustomGeometry(
             poseStack,
