@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
 
+    private static final Component SPACE = Component.literal(" ");
+
     @Inject(
         method = "extractNameTags",
         at = @At("TAIL")
@@ -35,7 +37,7 @@ public abstract class LivingEntityRendererMixin {
 
         state.nameTag = Component.empty()
             .append(state.nameTag)
-            .append(Component.literal(" "))
+            .append(SPACE)
             .append(healthText);
     }
 }
