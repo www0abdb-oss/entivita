@@ -1,106 +1,179 @@
-# entivita
+# Entivita
 
-[![Apache License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Environment](https://img.shields.io/badge/Environment-Client-blueviolet)](https://fabricmc.net/wiki/documentation:side)
-[![Minecraft Fabric](https://img.shields.io/badge/Minecraft-Fabric-orange)](https://fabricmc.net/)
-[![GitHub Release](https://img.shields.io/github/v/release/www0abdb-oss/entivita)](https://github.com/www0abdb-oss/entivita/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Minecraft](https://img.shields.io/badge/Minecraft-26.2-green.svg)](https://www.minecraft.net/)
+[![Fabric](https://img.shields.io/badge/Mod%20Loader-Fabric-orange.svg)](https://fabricmc.net/)
+[![Environment](https://img.shields.io/badge/Environment-Client-blueviolet.svg)](https://fabricmc.net/)
 
+Entivita is a client-side health indicator mod for Minecraft 26.2 using the Fabric mod loader.
 
-
-**Note:** This mod is Client-side only - it works perfectly on any server without requiring server-side installation.
-
-**entivita** is a lightweight and customizable Fabric mod that displays the current health of any living entity (players, mobs, and animals) as a clear numeric value alongside a heart icon floating above their heads. It enhances your gameplay awareness while remaining fully compatible with other mods.
-
----
+The mod displays health information for living entities and provides a visual heart-based health indicator for other players. It is designed to make entity health easier to identify during gameplay while keeping the implementation lightweight and client-side.
 
 ## Features
 
-- Real-Time Health Display: Shows the exact health points of any living entity directly above their head.
-- Heart Icon Rendering: Displays a custom heart texture next to the health number for intuitive visual feedback.
-- Client-Side Only: Works on any server without installation on the server side - perfect for survival, PVP, and mini-game servers.
-- Performance Optimized: Built with efficiency in mind to ensure smooth gameplay without unnecessary lag.
-- Fully Customizable: Includes an in-game configuration screen to adjust scale, colors, and display options.
-- Lightweight and Compatible: Minimal performance impact and works seamlessly alongside your favorite Fabric mods.
-- Open Source and Transparent: Licensed under Apache-2.0, with all development happening in the open.
+* Health information displayed above living entities.
+* Numeric health values showing current and maximum health.
+* Heart-based health indicators for other players.
+* Support for normal health and absorption hearts.
+* Configurable health indicator rendering.
+* Configurable heart stacking behavior.
+* Adjustable vertical heart offset.
+* Client-side implementation.
+* Uses Minecraft's existing heart textures.
+* Open-source development under the Apache License 2.0.
 
----
+## Supported Environment
+
+| Component     | Version         |
+| ------------- | --------------- |
+| Minecraft     | 26.2            |
+| Mod Loader    | Fabric          |
+| Fabric Loader | 0.19.3 or newer |
+| Java          | 25 or newer     |
+| Fabric API    | Required        |
+| Environment   | Client          |
 
 ## Installation
 
-Follow these simple steps to get started:
+1. Install Minecraft 26.2.
+2. Install Fabric Loader 0.19.3 or newer.
+3. Install the required Fabric API version for Minecraft 26.2.
+4. Download the Entivita JAR from the project's releases.
+5. Place the JAR file in the Minecraft `mods` directory.
+6. Launch Minecraft using the Fabric installation.
 
-1. Install Fabric: Ensure you have the Fabric launcher installed for your Minecraft version.
-2. Download the Mod: Get the latest entivita JAR file from the Releases page.
-3. Place in Mods Folder: Move the downloaded JAR file into your Minecraft mods folder.
-4. Launch the Game: Start Minecraft using the Fabric profile. The mod will be automatically loaded.
-
----
+Entivita is configured as a client-side mod and does not require a server-side installation.
 
 ## Configuration
 
-After launching the game with the mod for the first time, you can configure all settings directly from the in-game options menu. Press the default keybind (O) to open the entivita settings screen, where you can adjust the scale, heart color, text color, and toggle the display on or off.
+Entivita stores its configuration in:
 
----
+```text
+config/entivita.json
+```
 
-## Requirements
+The current configuration provides the following options:
 
-- Minecraft: Java Edition (Version compatible with your Fabric setup).
-- Mod Loader: Fabric Loader.
-- Dependency: Fabric API (Required for most Fabric mods).
+### Health Indicator Rendering
 
----
+Enables or disables the health indicator rendering.
 
-## Building from Source
+### Heart Stacking
 
-If you want to build the mod yourself:
+Controls whether heart indicators are arranged into multiple rows.
 
-1. Clone the repository:
-   git clone https://github.com/www0abdb-oss/entivita.git
-   cd entivita
+### Heart Offset
 
-2. Build the mod:
-   ./gradlew build
+Adjusts the vertical position of the heart indicator.
 
-3. The built JAR file will be located in build/libs/
+Configuration changes are saved automatically to the Entivita configuration file.
 
----
+## Controls
+
+The current version provides key bindings for:
+
+* Enabling or disabling health indicator rendering.
+* Enabling or disabling heart stacking.
+* Increasing the heart offset.
+* Decreasing the heart offset.
+
+The key bindings can be assigned through Minecraft's standard Controls menu.
+
+No default keyboard key is assigned by Entivita to these actions.
+
+## How It Works
+
+Entivita uses Minecraft's client-side rendering system to add health information to living entity rendering and to render heart indicators for other players.
+
+Health values are read from the entity's existing health data. Entivita does not create or modify the Minecraft health system.
+
+The heart indicators use Minecraft's existing GUI heart textures, including normal and absorption heart states.
+
+## Compatibility
+
+Entivita is developed for Minecraft 26.2 with Fabric.
+
+Compatibility with other mods may depend on changes to Minecraft's rendering system and on modifications made by other rendering or entity-related mods.
+
+If you encounter a compatibility problem, please report it with your Minecraft version, Fabric Loader version, Fabric API version, Entivita version, installed mods, and relevant logs.
+
+## Development Status
+
+Entivita is currently under active development.
+
+The rendering system, configuration options, compatibility, and supported behavior may change during development.
+
+Features documented here describe the current implementation and may be updated as the project evolves.
+
+## Building From Source
+
+Clone the repository:
+
+```bash
+git clone https://github.com/www0abdb-oss/entivita.git
+cd entivita
+```
+
+Build the project:
+
+```bash
+./gradlew clean build
+```
+
+The generated JAR files can be found in:
+
+```text
+build/libs/
+```
 
 ## Contributing
 
-We welcome contributions from the community! Whether you want to report a bug, suggest a new feature, or submit code, your help is appreciated.
+Contributions are welcome.
 
-1. Fork the repository.
-2. Create a new branch for your feature or fix.
-3. Submit a Pull Request with a clear description of your changes.
+You can contribute by:
 
----
+* Reporting bugs.
+* Suggesting improvements.
+* Testing the mod.
+* Improving documentation.
+* Submitting pull requests.
 
-## Support and Feedback
+For code contributions, please ensure that the project builds successfully and that changes are tested with Minecraft 26.2.
 
-- Issues: Report bugs or suggest features via GitHub Issues
-- Discussions: Join the conversation in GitHub Discussions
+## Bug Reports
 
----
+When reporting a bug, include as much relevant information as possible:
 
-## License
+* Entivita version.
+* Minecraft version.
+* Fabric Loader version.
+* Fabric API version.
+* Other installed mods.
+* Steps required to reproduce the problem.
+* Crash reports or relevant game logs.
 
-This project is licensed under the Apache License, Version 2.0. See the LICENSE file for full details.
-
----
-
-## Disclaimer
-
-This add-on is an independent project and is not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.
-
----
-
-Enjoying entivita? Consider giving it a star on GitHub.
-
----
+Clear reproduction steps and logs help make debugging faster and more reliable.
 
 ## Links
 
-- Website: https://www0abdb-oss.github.io
-- Instagram: https://www.instagram.com/www0abdb2026
-- YouTube: https://youtube.com/@abd_errahim-mine
-- Modrinth: https://modrinth.com/user/www0abdb
+* [GitHub Repository](https://github.com/www0abdb-oss/entivita)
+* [Modrinth Project](https://modrinth.com/project/entivita)
+* [Discord](https://discord.gg/qECjtAhKD)
+* [Instagram](https://www.instagram.com/www0abdb2026)
+* [YouTube](https://youtube.com/@abd_errahim-mine)
+
+## License
+
+Entivita is licensed under the Apache License 2.0.
+
+See the [LICENSE](LICENSE) file for the complete license text.
+
+## Disclaimer
+
+Entivita is an independent project and is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft.
+
+Minecraft is a trademark of Mojang Studios.
+
+---
+
+If you find Entivita useful, consider giving the repository a star on GitHub.
