@@ -19,6 +19,25 @@ The project focuses on providing clear, lightweight health information during ga
 [![Java 25+](https://img.shields.io/badge/Java-25%2B-ED8B00?style=flat-square)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-2F3A4A?style=flat-square)](LICENSE)
 
+## What Is Entivita?
+
+Entivita is a **client-side Fabric mod for Minecraft 26.2** that displays health information for living entities directly in the game world.
+
+The mod presents an entity's current health as a **numeric value with a heart indicator**, making health easier to see while playing.
+
+Entivita is designed around Minecraft's existing health and heart systems and integrates with the client-side entity rendering system.
+
+### Key Points
+
+- **Client-side** — Entivita runs on the client and does not require the mod to be installed on the server.
+- **Health information** — Displays the current and maximum health of living entities.
+- **Heart indicators** — Uses Minecraft's heart system to represent entity health.
+- **Player indicators** — Provides heart-based health indicators for other players.
+- **Configurable rendering** — Includes options for health indicator rendering, heart stacking, and heart offset.
+- **Minecraft 26.2** — Currently developed and tested for Minecraft 26.2 with Fabric.
+
+Entivita is currently under active development, so its features and configuration may change over time.
+
 ## Features
 
 - Displays current and maximum health for living entities.
