@@ -102,7 +102,7 @@ When reporting an issue, include:
 - [GitHub Repository](https://github.com/www0abdb-oss/entivita)
 - [GitHub Releases](https://github.com/www0abdb-oss/entivita/releases)
 - [Modrinth](https://modrinth.com/project/entivita)
-- [Discord](https://discord.gg/qECjtAhKD)
+- [Discord](https://discord.gg/TwdqTFExVT)
 - [Instagram](https://www.instagram.com/www0abdb2026)
 - [YouTube](https://youtube.com/@abd_errahim-mine)
 
