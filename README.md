@@ -18,7 +18,6 @@ The project focuses on providing clear, lightweight health information during ga
 [![Fabric](https://img.shields.io/badge/Fabric-Client--Side-DBD0B4?style=flat-square)](https://fabricmc.net/)
 [![Java 25+](https://img.shields.io/badge/Java-25%2B-ED8B00?style=flat-square)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-2F3A4A?style=flat-square)](LICENSE)
-[![entivita on OSSDrop](https://ossdrop.com/badge/entivita?theme=dark)](https://ossdrop.com/tool/entivita)
 
 ## What Is Entivita?
 
@@ -165,3 +164,5 @@ Similarities in names, concepts, features, or descriptions between projects do n
 The official Entivita source code, development history, releases, and documentation are maintained through this repository.
 
 Contributions and collaboration are welcome.
+
+[![entivita on OSSDrop](https://ossdrop.com/badge/entivita?theme=dark)](https://ossdrop.com/tool/entivita)
