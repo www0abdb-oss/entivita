@@ -155,10 +155,12 @@ Entivita is an independent project and is not affiliated with, endorsed by, or s
 
 ## Project Independence
 
-Entivita is an independent project developed and maintained by `www0abdb-oss`.
+Entivita is an independent open-source project developed and maintained by `www0abdb-oss` and its contributors.
 
-The project is not affiliated with, sponsored by, or officially associated with any other project, repository, developer, or organization using the same or a similar name.
+The project is not affiliated with or officially associated with other projects that may use the same or similar names.
 
-Any similarities in names, concepts, features, or descriptions between Entivita and other projects should not be interpreted as evidence of collaboration, shared authorship, or a common origin.
+Similarities in names, concepts, features, or descriptions between projects do not imply collaboration, shared authorship, or a common origin.
 
-The official source code, development history, releases, and project information are maintained in this repository.
+The official Entivita source code, development history, releases, and documentation are maintained through this repository.
+
+Contributions and collaboration are welcome.
