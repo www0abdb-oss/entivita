@@ -5,9 +5,7 @@
 
 # Entivita
 
-Entivita is a lightweight client-side Fabric mod for Minecraft 26.2 that displays living entity health as a numeric value with a heart indicator above their heads.
-
-It is designed to provide clear health information directly in the Minecraft world.
+**Minecraft 26.2 · Fabric · Client-Side Health Indicator**
 
 Entivita is a client-side Fabric mod for Minecraft 26.2 that displays health information for living entities and heart indicators for other players.
 
