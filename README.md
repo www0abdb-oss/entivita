@@ -18,6 +18,7 @@ The project focuses on providing clear, lightweight health information during ga
 [![Fabric](https://img.shields.io/badge/Fabric-Client--Side-DBD0B4?style=flat-square)](https://fabricmc.net/)
 [![Java 25+](https://img.shields.io/badge/Java-25%2B-ED8B00?style=flat-square)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-2F3A4A?style=flat-square)](LICENSE)
+A lightweight client-side Fabric mod that displays living entity health as a numeric value with a heart indicator above their heads. 
 
 ## What Is Entivita?
 
