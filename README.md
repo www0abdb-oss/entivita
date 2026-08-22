@@ -1,3 +1,8 @@
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="logo.png" alt="Logo entivita " width="80" height="80">
+  </a>
+
 # Entivita
 
 **Minecraft 26.2 · Fabric · Client-Side Health Indicator**
