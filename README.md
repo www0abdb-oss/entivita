@@ -151,4 +151,14 @@ Entivita is an independent project and is not affiliated with, endorsed by, or s
     <img src="https://raw.githubusercontent.com/www0abdb-oss/data-lpll/refs/heads/main/lsiid.png" alt="entivita " >
   </a>
 
-* [Entivita](https://github.com/www0abdb-oss/entivita)
+ [Entivita](https://github.com/www0abdb-oss/entivita)
+
+## Project Independence
+
+Entivita is an independent project developed and maintained by `www0abdb-oss`.
+
+The project is not affiliated with, sponsored by, or officially associated with any other project, repository, developer, or organization using the same or a similar name.
+
+Any similarities in names, concepts, features, or descriptions between Entivita and other projects should not be interpreted as evidence of collaboration, shared authorship, or a common origin.
+
+The official source code, development history, releases, and project information are maintained in this repository.
