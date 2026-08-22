@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="logo.png" alt="Logo entivita " width="80" height="80">
+    <img src="loge.png" alt="Logo entivita " width="80" height="80">
   </a>
 
 # Entivita
