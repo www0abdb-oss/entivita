@@ -127,5 +127,9 @@ Entivita is an independent project and is not affiliated with, endorsed by, or s
 ---
 
 <p align="center" style="margin-top:40px; color:#5555; font-size:0.8rem;">Keywords: client-side, entity-health, entivita, fabric, fabric-mod, health, health-check, health-display, health-indicator, health-indicators, hud, minecraft, pvp</p>
+<div align="center">
+  <a href="https://github.com/www0abdb-oss/entivita/">
+    <img src="https://raw.githubusercontent.com/www0abdb-oss/data-lpll/refs/heads/main/lsiid.png" alt="entivita " >
+  </a>
 
 * [Entivita](https://github.com/www0abdb-oss/entivita)
