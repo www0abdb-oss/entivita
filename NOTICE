@@ -1,49 +1,29 @@
-NOTICE
+# NOTICE
+
 Entivita is an open-source project.
 
-This project is maintained and developed through the Entivita repository. Copyright and attribution for individual contributions remain with their respective authors, subject to the project’s applicable license.
+This project may include or depend upon third-party software, libraries, code, assets, or other materials.
 
-Project
-Entivita
-Copyright © 2026 www0abdb-oss and repository contributors
+## Source Attribution
 
-Entivita is distributed under the open-source license specified in the project’s LICENSE file.
+[KEEP THE ORIGINAL SOURCE NOTICE HERE — UNCHANGED.]
 
-The LICENSE file is the authoritative source for the permissions, conditions, and limitations applicable to the Entivita project.
+## Entivita
 
-Repository Contributors
-We acknowledge the contributions made to the Entivita repository, including source code, documentation, assets, fixes, tests, translations, and other original work.
+Entivita is an independent open-source project developed by www0abdb-oss.
 
-Attribution for contributions belongs to the respective repository contributors as applicable under the project’s license.
+The project is distributed under the license specified in the `LICENSE` file.
 
-The repository’s contribution history and version-control records may be used to identify and preserve contributor attribution.
+## Third-Party Materials
 
-Third-Party Materials
-Entivita may include, use, or depend upon third-party software, libraries, code, assets, or other materials.
+Third-party materials included in or used by Entivita remain subject to their respective licenses and attribution requirements.
 
-Third-party materials are not claimed as original Entivita work and remain subject to their respective copyrights, licenses, and attribution requirements.
+Where required, the original notices, license information, and attribution associated with third-party materials are preserved.
 
-Where a third-party license requires preservation of a copyright notice, attribution, license text, or other notice, those requirements remain applicable.
+Third-party projects and materials are not presented as original Entivita materials.
 
-Nothing in this notice grants additional rights to third-party materials beyond those provided by their respective licenses.
+## License
 
-Copyright and Attribution
-Copyright notices and license notices included with source files or third-party materials must not be removed where their applicable licenses require them to be preserved.
+For the complete terms and conditions applicable to Entivita, see the `LICENSE` file.
 
-This NOTICE file does not replace the licenses of Entivita or its third-party materials.
-
-For complete licensing terms, permissions, conditions, and limitations, see the project’s LICENSE file.
-
-Independence
-Entivita is an independent open-source project.
-
-Unless explicitly stated otherwise, repository contributors, third-party projects, libraries, and copyright holders mentioned in this notice are not necessarily affiliated with or endorsed by one another.
-
-Contributions
-Contributions submitted to the Entivita repository are subject to the project’s applicable license and contribution terms.
-
-Contributors are responsible for ensuring that they have the necessary rights to submit their contributions.
-
-Copyright © 2026 www0abdb-oss and repository contributors.
-
-See LICENSE for the applicable open-source license.
+This `NOTICE` file is provided for attribution and informational purposes and does not replace the applicable licenses.
