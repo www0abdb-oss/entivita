@@ -18,6 +18,7 @@ It uses Minecraft's familiar health and heart systems to make entity health easi
 [![Fabric](https://img.shields.io/badge/Fabric-Client--Side-DBD0B4?style=flat-square)](https://fabricmc.net/)
 [![Java](https://img.shields.io/badge/Java-25%2B-ED8B00?style=flat-square)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-2F3A4A?style=flat-square)](LICENSE)
+[![entivita on Modrinth](https://img.shields.io/modrinth/dt/entivita?style=flat-square&logo=modrinth&logoColor=%23ffffff&label=Modrinth&color=%231bd96a&labelColor=%231a1a1a)](https://modrinth.com/mod/entivita)
 
 [**Modrinth**](https://modrinth.com/project/entivita) · [**Releases**](https://github.com/www0abdb-oss/entivita/releases) · [**Discord**](https://discord.gg/TwdqTFExVT) · [**OSSDrop**](https://ossdrop.com/tool/entivita)
 
