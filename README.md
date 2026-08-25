@@ -179,9 +179,11 @@ The project remains open to community participation. Contributions, collaboratio
 
 Entivita is an open-source project and welcomes contributions from developers and community members.
 
-<a href="https://github.com/www0abdb-oss/entivita/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=www0abdb-oss/entivita" alt="Entivita contributors">
-</a>
+<p align="center" style="margin: 20px 0;">
+  <a href="https://github.com/www0abdb-oss/entivita/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=www0abdb-oss/entivita" alt="Entivita contributors" style="max-width: 100%;">
+  </a>
+</p>
 
 The contributor list is generated from the project's GitHub contribution history.
 
@@ -220,4 +222,8 @@ Minecraft is a trademark of Microsoft Corporation.
 
 ---
 
-[![entivita on OSSDrop](https://ossdrop.com/badge/entivita?theme=dark)](https://ossdrop.com/tool/entivita)
+<p align="center">
+  <a href="https://ossdrop.com/tool/entivita">
+    <img src="https://ossdrop.com/badge/entivita?theme=dark" alt="entivita on OSSDrop">
+  </a>
+</p>
