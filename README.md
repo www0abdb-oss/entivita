@@ -171,7 +171,6 @@ The project remains open to community participation. Contributions, collaboratio
 * **Mod Page:** [Modrinth](https://modrinth.com/project/entivita)
 * **Project Discovery:** [OSSDrop](https://ossdrop.com/tool/entivita)
 
-[![entivita on OSSDrop](https://ossdrop.com/badge/entivita?theme=dark)](https://ossdrop.com/tool/entivita)
 
 ---
 
@@ -217,3 +216,6 @@ Minecraft is a trademark of Microsoft Corporation.
 [OSSDrop](https://ossdrop.com/tool/entivita)
 
 </div>
+---
+
+[![entivita on OSSDrop](https://ossdrop.com/badge/entivita?theme=dark)](https://ossdrop.com/tool/entivita)
