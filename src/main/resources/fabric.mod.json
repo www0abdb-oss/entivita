@@ -6,8 +6,7 @@
   "name": "Entivita",
   "description": "Immersive combat HUD that displays real-time health indicators directly above players and entities.",
   "authors": [
-    "www0abdb-oss",
-    "Gaider10"
+    "www0abdb-oss"
   ],
 
   "contact": {
@@ -21,11 +20,14 @@
 
   "environment": "client",
 
-  "entrypoints": {
-    "client": [
-      "www0abdb.oss.entivita.EntivitaMod"
-    ]
-  },
+"entrypoints": {
+  "client": [
+    "www0abdb.oss.entivita.EntivitaMod"
+  ],
+  "modmenu": [
+    "www0abdb.oss.entivita.ModMenuIntegration"
+  ]
+},
 
   "mixins": [
     "entivita.mixins.json"

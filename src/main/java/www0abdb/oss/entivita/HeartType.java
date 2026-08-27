@@ -3,11 +3,41 @@ package www0abdb.oss.entivita;
 import net.minecraft.resources.Identifier;
 
 public enum HeartType {
-    EMPTY(Identifier.withDefaultNamespace("hud/heart/container")),
-    RED_FULL(Identifier.withDefaultNamespace("hud/heart/full")),
-    RED_HALF(Identifier.withDefaultNamespace("hud/heart/half")),
-    YELLOW_FULL(Identifier.withDefaultNamespace("hud/heart/absorbing_full")),
-    YELLOW_HALF(Identifier.withDefaultNamespace("hud/heart/absorbing_half"));
+
+    EMPTY(
+            Identifier.fromNamespaceAndPath(
+                    "entivita",
+                    "textures/hud/heart/container.png"
+            )
+    ),
+
+    RED_FULL(
+            Identifier.fromNamespaceAndPath(
+                    "entivita",
+                    "textures/hud/heart/full.png"
+            )
+    ),
+
+    RED_HALF(
+            Identifier.fromNamespaceAndPath(
+                    "entivita",
+                    "textures/hud/heart/half.png"
+            )
+    ),
+
+    YELLOW_FULL(
+            Identifier.fromNamespaceAndPath(
+                    "entivita",
+                    "textures/hud/heart/absorbing_full.png"
+            )
+    ),
+
+    YELLOW_HALF(
+            Identifier.fromNamespaceAndPath(
+                    "entivita",
+                    "textures/hud/heart/absorbing_half.png"
+            )
+    );
 
     public final Identifier texture;
 

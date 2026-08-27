@@ -2,10 +2,11 @@
   "required": true,
   "package": "www0abdb.oss.entivita.mixin",
   "compatibilityLevel": "JAVA_25",
-  "client": [
+"client": [
     "AvatarRendererMixin",
-    "LivingEntityRendererMixin"
-  ],
+    "LivingEntityRendererMixin",
+    "EntivitaLivingEntityRenderState"
+],
   "injectors": {
     "defaultRequire": 1
   }

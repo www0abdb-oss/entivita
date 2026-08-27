@@ -22,8 +22,12 @@ public class Config {
     private static Config INSTANCE = new Config();
 
     private boolean renderingEnabled = true;
+
     private boolean heartStackingEnabled = true;
+
     private int heartOffset = 0;
+
+    private float heartScale = 1.0F;
 
     public static boolean getRenderingEnabled() {
         return INSTANCE.renderingEnabled;
@@ -48,40 +52,67 @@ public class Config {
     }
 
     public static void setHeartOffset(int offset) {
-        INSTANCE.heartOffset = offset;
+        INSTANCE.heartOffset =
+                Math.max(-20, Math.min(40, offset));
+
+        save();
+    }
+
+    public static float getHeartScale() {
+        return INSTANCE.heartScale;
+    }
+
+    public static void setHeartScale(float scale) {
+        INSTANCE.heartScale =
+                Math.max(0.5F, Math.min(2.0F, scale));
+
         save();
     }
 
     public static void load() {
+
         if (!Files.exists(CONFIG_PATH)) {
             save();
             return;
         }
 
-        try (var reader = Files.newBufferedReader(CONFIG_PATH)) {
-            Config config = GSON.fromJson(reader, Config.class);
+        try (var reader =
+                     Files.newBufferedReader(CONFIG_PATH)) {
+
+            Config config =
+                    GSON.fromJson(reader, Config.class);
 
             if (config != null) {
                 INSTANCE = config;
             }
+
         } catch (IOException | RuntimeException e) {
+
             System.err.println(
-                    "Failed to load Health Indicators config: "
+                    "Failed to load Entivita config: "
                             + e.getMessage()
             );
         }
     }
 
     public static void save() {
-        try {
-            Files.createDirectories(CONFIG_PATH.getParent());
 
-            try (var writer = Files.newBufferedWriter(CONFIG_PATH)) {
+        try {
+
+            Files.createDirectories(
+                    CONFIG_PATH.getParent()
+            );
+
+            try (var writer =
+                         Files.newBufferedWriter(CONFIG_PATH)) {
+
                 GSON.toJson(INSTANCE, writer);
             }
+
         } catch (IOException | RuntimeException e) {
+
             System.err.println(
-                    "Failed to save Health Indicators config: "
+                    "Failed to save Entivita config: "
                             + e.getMessage()
             );
         }

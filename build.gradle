@@ -11,6 +11,10 @@ base {
 }
 
 repositories {
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
 }
 
 loom {
@@ -29,6 +33,8 @@ dependencies {
 
     implementation "net.fabricmc:fabric-loader:${loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    compileOnly "com.terraformersmc:modmenu:20.0.1"
 }
 
 processResources {

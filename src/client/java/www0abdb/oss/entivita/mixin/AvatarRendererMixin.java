@@ -4,45 +4,41 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.sprite.AtlasManager;
-import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import www0abdb.oss.entivita.Config;
+import www0abdb.oss.entivita.EntivitaHealthState;
 import www0abdb.oss.entivita.HeartType;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class AvatarRendererMixin {
 
-private static final Identifier GUI_ATLAS = net.minecraft.data.AtlasIds.GUI;
-private static final RenderType[] HEART_RENDER_TYPES;
+    private static final RenderType[] HEART_RENDER_TYPES;
 
-static {
-    HeartType[] types = HeartType.values();
-    HEART_RENDER_TYPES = new RenderType[types.length];
-    for (int i = 0; i < types.length; i++) {
-        SpriteId spriteId = new SpriteId(GUI_ATLAS, types[i].texture);
-        HEART_RENDER_TYPES[i] = spriteId.renderType(RenderTypes::entityCutout);
+    static {
+        HeartType[] types = HeartType.values();
+        HEART_RENDER_TYPES = new RenderType[types.length];
+
+        for (int i = 0; i < types.length; i++) {
+            HEART_RENDER_TYPES[i] =
+                    RenderTypes.entityCutout(types[i].texture);
+        }
     }
-}
 
     @Inject(
             method = "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
             at = @At("RETURN")
     )
-    private void playerEntivita$submitHealth(
-            net.minecraft.client.renderer.entity.state.LivingEntityRenderState state,
+    private void entivita$submitHealth(
+            LivingEntityRenderState state,
             PoseStack poseStack,
             SubmitNodeCollector collector,
             CameraRenderState camera,
@@ -52,7 +48,7 @@ static {
             return;
         }
 
-        if (!(state instanceof AvatarRenderState avatarState)) {
+        if (!(state instanceof EntivitaHealthState healthState)) {
             return;
         }
 
@@ -62,190 +58,289 @@ static {
             return;
         }
 
-        Entity entity = client.level.getEntity(avatarState.id);
-
-        if (!(entity instanceof Player player)) {
+        if (state.isInvisibleToPlayer) {
             return;
         }
 
-        if (player == client.player) {
+        float maxHealth = healthState.entivita$getMaxHealth();
+        float health = healthState.entivita$getHealth();
+        float absorption = healthState.entivita$getAbsorption();
+
+        if (maxHealth <= 0.0F) {
             return;
         }
 
-        if (player.isInvisibleTo(client.player)) {
-            return;
-        }
+        int maxHealthPoints =
+                Math.max(0, (int) Math.ceil(maxHealth));
 
-        int maxHealth = (int) Math.ceil(player.getMaxHealth());
-        int health = (int) Math.ceil(player.getHealth());
-        int absorption = (int) Math.ceil(player.getAbsorptionAmount());
+        int healthPoints =
+                Math.max(0, (int) Math.ceil(health));
 
-        if (maxHealth <= 0) {
-            return;
-        }
+        int absorptionPoints =
+                Math.max(0, (int) Math.ceil(absorption));
 
-        int normalHearts = (maxHealth + 1) / 2;
-        int redHearts = (health + 1) / 2;
-        int yellowHearts = (absorption + 1) / 2;
+        int normalHearts =
+                (maxHealthPoints + 1) / 2;
 
-        int totalHearts = normalHearts + yellowHearts;
+        int redHearts =
+                Math.min(
+                        normalHearts,
+                        (healthPoints + 1) / 2
+                );
+
+        int yellowHearts =
+                (absorptionPoints + 1) / 2;
+
+        int totalHearts =
+                normalHearts + yellowHearts;
 
         if (totalHearts <= 0) {
             return;
         }
 
-        int heartsPerRow = Config.getHeartStackingEnabled()
-                ? 10
-                : totalHearts;
+        int heartsPerRow =
+                Config.getHeartStackingEnabled()
+                        ? 10
+                        : Math.min(totalHearts, 20);
 
-        int rows = (totalHearts + heartsPerRow - 1) / heartsPerRow;
+        int rows =
+                (totalHearts + heartsPerRow - 1)
+                        / heartsPerRow;
 
-        float rowOffset = Math.max(10 - (rows - 2), 3);
+        float rowSpacing = 9.0F;
 
-        /*
-         * The renderer's PoseStack is in entity/model space here.
-         * Submit our geometry using the same pose.
-         */
         poseStack.pushPose();
 
-        poseStack.translate(
-                0.0D,
-                player.getBbHeight()
-                        + 0.55D
-                        + Config.getHeartOffset() * 0.025D,
-                0.0D
-        );
+/*
+ * Automatically place the health HUD above each entity.
+ * The base position follows the entity's actual height.
+ * Extra rows receive a small additional lift.
+ */
+/*
+ * Keep the HUD close to the entity while adapting to
+ * different entity sizes.
+ */
+float entityHeight = Math.max(
+        0.5F,
+        state.boundingBoxHeight
+);
 
-        // Face the camera.
+float hudHeight =
+        entityHeight
+                + 0.05F
+                + Math.max(0, rows - 1) * 0.12F
+                + Config.getHeartOffset() * 0.05F;
+
+poseStack.translate(
+        0.0D,
+        hudHeight,
+        0.0D
+);
+
         poseStack.mulPose(camera.orientation);
 
-        // Match the old HUD-style quad orientation.
-        poseStack.scale(-0.025F, 0.025F, 0.025F);
-
-        AtlasManager atlasManager = client.getAtlasManager();
-        var atlas = atlasManager.getAtlasOrThrow(GUI_ATLAS);
-        TextureAtlasSprite emptySprite = atlas.getSprite(HeartType.EMPTY.texture);
-        TextureAtlasSprite redFullSprite = atlas.getSprite(HeartType.RED_FULL.texture);
-        TextureAtlasSprite redHalfSprite = atlas.getSprite(HeartType.RED_HALF.texture);
-        TextureAtlasSprite yellowFullSprite = atlas.getSprite(HeartType.YELLOW_FULL.texture);
-        TextureAtlasSprite yellowHalfSprite = atlas.getSprite(HeartType.YELLOW_HALF.texture);
-
-        float baseX = ((Math.min(totalHearts, heartsPerRow) - 1) * 8.0F) / 2.0F;
+        poseStack.scale(
+                -0.018F,
+                0.018F,
+                0.018F
+        );
 
         for (int heart = 0; heart < totalHearts; heart++) {
+
             int row = heart / heartsPerRow;
-            int col = heart % heartsPerRow;
+            int column = heart % heartsPerRow;
 
-            float x = baseX - col * 8.0F;
-            float y = row * rowOffset;
-            float z = row * 0.01F;
+            int heartsThisRow =
+                    Math.min(
+                            heartsPerRow,
+                            totalHearts - row * heartsPerRow
+                    );
 
-            // Container first.
+            float startX =
+                    ((heartsThisRow - 1) * 9.0F) / 2.0F;
+
+            float x =
+                    startX - column * 9.0F;
+
+float y = row * rowSpacing;
+
+            /*
+             * Container
+             */
             submitHeart(
                     collector,
                     poseStack,
-                    emptySprite,
                     x,
                     y,
-                    z,
+                    0.0F,
                     HeartType.EMPTY,
-                    avatarState.lightCoords
+                    state.lightCoords
             );
 
-            HeartType type;
-            TextureAtlasSprite sprite;
+            HeartType type = HeartType.EMPTY;
 
-            if (heart < redHearts) {
-                if (heart == redHearts - 1 && (health & 1) != 0) {
-                    type = HeartType.RED_HALF;
-                    sprite = redHalfSprite;
-                } else {
-                    type = HeartType.RED_FULL;
-                    sprite = redFullSprite;
+            /*
+             * Normal health
+             */
+            if (heart < normalHearts) {
+
+                if (heart < redHearts) {
+
+                    if (
+                            heart == redHearts - 1
+                                    && healthPoints % 2 != 0
+                    ) {
+                        type = HeartType.RED_HALF;
+                    } else {
+                        type = HeartType.RED_FULL;
+                    }
                 }
-            } else if (heart < normalHearts) {
-                type = HeartType.EMPTY;
-                sprite = emptySprite;
-            } else {
-                if (heart == totalHearts - 1 && (absorption & 1) != 0) {
-                    type = HeartType.YELLOW_HALF;
-                    sprite = yellowHalfSprite;
-                } else {
-                    type = HeartType.YELLOW_FULL;
-                    sprite = yellowFullSprite;
+            }
+
+            /*
+             * Absorption
+             */
+            else {
+
+                int absorptionIndex =
+                        heart - normalHearts;
+
+                if (absorptionIndex < yellowHearts) {
+
+                    if (
+                            absorptionIndex == yellowHearts - 1
+                                    && absorptionPoints % 2 != 0
+                    ) {
+                        type = HeartType.YELLOW_HALF;
+                    } else {
+                        type = HeartType.YELLOW_FULL;
+                    }
                 }
             }
 
             if (type != HeartType.EMPTY) {
+
                 submitHeart(
                         collector,
                         poseStack,
-                        sprite,
                         x,
                         y,
-                        z + 0.001F,
+                        0.01F,
                         type,
-                        avatarState.lightCoords
+                        state.lightCoords
                 );
             }
         }
 
         poseStack.popPose();
     }
-private static void submitHeart(
-        SubmitNodeCollector collector,
-        PoseStack poseStack,
-        TextureAtlasSprite sprite,
-        float x,
-        float y,
-        float z,
-        HeartType type,
-        int light
-) {
-    RenderType renderType = HEART_RENDER_TYPES[type.ordinal()];
 
-    collector.submitCustomGeometry(
-            poseStack,
-            renderType,
-            (pose, vertices) -> {
-                Matrix4f matrix = pose.pose();
+    private static void submitHeart(
+            SubmitNodeCollector collector,
+            PoseStack poseStack,
+            float x,
+            float y,
+            float z,
+            HeartType type,
+            int light
+    ) {
+        RenderType renderType =
+                HEART_RENDER_TYPES[type.ordinal()];
 
-                float size = 9.0F;
+        Identifier texture =
+                type.texture;
 
-                float x0 = x - size;
-                float x1 = x;
+        collector.submitCustomGeometry(
+                poseStack,
+                renderType,
+                (pose, vertices) -> {
 
-                float y0 = y - size;
-                float y1 = y;
+                    Matrix4f matrix = pose.pose();
 
-                vertices.addVertex(matrix, x0, y0, z)
-                        .setColor(255, 255, 255, 255)
-                        .setUv(sprite.getU0(), sprite.getV1())
-                        .setUv1(0, 0)
-                        .setUv2(light & 0xFFFF, light >> 16)
-                        .setNormal(0.0F, 0.0F, 1.0F);
+                    float size = 8.0F;
 
-                vertices.addVertex(matrix, x1, y0, z)
-                        .setColor(255, 255, 255, 255)
-                        .setUv(sprite.getU1(), sprite.getV1())
-                        .setUv1(0, 0)
-                        .setUv2(light & 0xFFFF, light >> 16)
-                        .setNormal(0.0F, 0.0F, 1.0F);
+                    float x0 = x - size / 2.0F;
+                    float x1 = x + size / 2.0F;
 
-                vertices.addVertex(matrix, x1, y1, z)
-                        .setColor(255, 255, 255, 255)
-                        .setUv(sprite.getU1(), sprite.getV0())
-                        .setUv1(0, 0)
-                        .setUv2(light & 0xFFFF, light >> 16)
-                        .setNormal(0.0F, 0.0F, 1.0F);
+                    float y0 = y - size / 2.0F;
+                    float y1 = y + size / 2.0F;
 
-                vertices.addVertex(matrix, x0, y1, z)
-                        .setColor(255, 255, 255, 255)
-                        .setUv(sprite.getU0(), sprite.getV0())
-                        .setUv1(0, 0)
-                        .setUv2(light & 0xFFFF, light >> 16)
-                        .setNormal(0.0F, 0.0F, 1.0F);
-            }
-    );
-}
+                    vertices.addVertex(
+                            matrix,
+                            x0,
+                            y0,
+                            z
+                    )
+                    .setColor(255, 255, 255, 255)
+                    .setUv(0.0F, 1.0F)
+                    .setUv1(0, 0)
+                    .setUv2(
+                            light & 0xFFFF,
+                            light >> 16
+                    )
+                    .setNormal(
+                            0.0F,
+                            0.0F,
+                            1.0F
+                    );
+
+                    vertices.addVertex(
+                            matrix,
+                            x1,
+                            y0,
+                            z
+                    )
+                    .setColor(255, 255, 255, 255)
+                    .setUv(1.0F, 1.0F)
+                    .setUv1(0, 0)
+                    .setUv2(
+                            light & 0xFFFF,
+                            light >> 16
+                    )
+                    .setNormal(
+                            0.0F,
+                            0.0F,
+                            1.0F
+                    );
+
+                    vertices.addVertex(
+                            matrix,
+                            x1,
+                            y1,
+                            z
+                    )
+                    .setColor(255, 255, 255, 255)
+                    .setUv(1.0F, 0.0F)
+                    .setUv1(0, 0)
+                    .setUv2(
+                            light & 0xFFFF,
+                            light >> 16
+                    )
+                    .setNormal(
+                            0.0F,
+                            0.0F,
+                            1.0F
+                    );
+
+                    vertices.addVertex(
+                            matrix,
+                            x0,
+                            y1,
+                            z
+                    )
+                    .setColor(255, 255, 255, 255)
+                    .setUv(0.0F, 0.0F)
+                    .setUv1(0, 0)
+                    .setUv2(
+                            light & 0xFFFF,
+                            light >> 16
+                    )
+                    .setNormal(
+                            0.0F,
+                            0.0F,
+                            1.0F
+                    );
+                }
+        );
+    }
 }

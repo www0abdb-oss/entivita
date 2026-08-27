@@ -1,7 +1,11 @@
 {
-  "key.categories.entivita": "Player Health Indicators",
-  "key.entivita.renderingEnabled": "Toggle Rendering",
+  "key.categories.entivita": "Entivita",
+  "key.entivita.renderingEnabled": "Toggle Health Indicators",
   "key.entivita.heartStackingEnabled": "Toggle Heart Stacking",
-  "key.entivita.increaseHeartOffset": "Increase Heart Offset",
-  "key.entivita.decreaseHeartOffset": "Decrease Heart Offset"
+  "key.entivita.increaseHeartOffset": "Raise Heart HUD",
+  "key.entivita.decreaseHeartOffset": "Lower Heart HUD",
+  "key.entivita.increaseHeartSize": "Increase Heart Size",
+  "key.entivita.decreaseHeartSize": "Decrease Heart Size",
+  "key.entivita.increaseHeartSpacing": "Increase Heart Spacing",
+  "key.entivita.decreaseHeartSpacing": "Decrease Heart Spacing"
 }
