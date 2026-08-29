@@ -226,4 +226,7 @@ Minecraft is a trademark of Microsoft Corporation.
   <a href="https://ossdrop.com/tool/entivita">
     <img src="https://ossdrop.com/badge/entivita?theme=dark" alt="entivita on OSSDrop">
   </a>
-</p>
+<p align="center">
+    <a href="https://modrinth.com/organization/gipot">
+    <img src="https://modfolio.creeperkatze.dev/modrinth/organization/gipot" alt="entivita">
+  </a>
